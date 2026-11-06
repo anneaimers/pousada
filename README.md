@@ -1,18 +1,41 @@
-## Getting Started
+# Pousada (Herança com parâmetro e validação)
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Objetivo
+Calcular o preço de uma estadia em três modalidades de acomodação,
+validando a quantidade de diárias e somando o total da pousada.
 
-## Folder Structure
+## Hierarquia
+Acomodacao → Suite
+Acomodacao → Chale
 
-The workspace contains two folders by default, where:
+## Regras de cálculo
+- Acomodacao: diaria * quantidadeDiarias
+- Suite: (diaria + adicionalConforto) * quantidadeDiarias
+- Chale: (diaria * quantidadeDiarias) + taxaLimpeza
+- Quantidade <= 0: imprimir erro e retornar 0, sem adicionais nem taxas
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Classes
+- Acomodacao: identificacao, valorDiaria, getters, calcularEstadia(int diarias)
+- Suite: adicionalConforto, getter, calcularEstadia() com @Override
+- Chale: taxaLimpeza, getter, calcularEstadia() com @Override
+- Pousada: nome, ArrayList<Acomodacao>, adicionarAcomodacao(),
+  gerarRelatorio(int diarias), calcularTotal(int diarias)
+- App: cria a pousada com as três acomodações e testa os cenários
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Observação importante
+Relatório e total usam a mesma operação de cálculo por referência do tipo
+Acomodacao. A pousada não decide a fórmula: cada objeto executa a sua.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Saída esperada (diária R$ 100,00, 2 diárias)
+Comum: R$ 200,00
+Suíte: R$ 280,00
+Chalé: R$ 260,00
+Total: R$ 740,00
 
-## Dependency Management
+## Casos de teste adicionais
+- Zero diárias → mensagem de erro e valor 0
+- Diárias negativas → mensagem de erro e valor 0
+- Pousada sem acomodações → mensagem de lista vazia e total 0
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Conceitos aplicados
+extends, super, @Override, ArrayList, validação, polimorfismo
